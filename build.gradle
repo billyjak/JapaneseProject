@@ -1,0 +1,22 @@
+plugins {
+    id("java")
+}
+
+group = "org.example"
+version = "1.0-SNAPSHOT"
+
+repositories {
+    mavenCentral()
+}
+
+dependencies {
+    implementation 'io.github.javiercanillas:jackson-masker:0.9.9'
+    implementation 'com.konghq:unirest-objectmapper-jackson:4.0.0-RC7'
+    testImplementation(platform("org.junit:junit-bom:5.9.1"))
+    testImplementation("org.junit.jupiter:junit-jupiter")
+    implementation("com.fasterxml.jackson.core:jackson-core:2.14.2")
+}
+
+tasks.test {
+    useJUnitPlatform()
+}
