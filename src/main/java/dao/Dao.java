@@ -5,21 +5,21 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
+import java.util.HashMap;
+import java.util.Objects;
 
 public class Dao {
-    private final File file = new File("src\\main\\java\\data\\data.json");
-    private final ObjectMapper mapper = new ObjectMapper();
-    private final Map<String, Object> wordMap;
+    HashMap<String, Object> wordMap = new HashMap<>();
+    ClassLoader classLoader = getClass().getClassLoader();
+    File file = (new File(Objects.requireNonNull(Objects.requireNonNull(classLoader.getResource("data.json")).getFile())));
+    ObjectMapper mapper = new ObjectMapper();
 
-    {
+    public HashMap<String, Object> getWordMap() {
         try {
             wordMap = mapper.readValue(file, new TypeReference<>(){});
         } catch (IOException e) {
             throw new RuntimeException(e);
         }
-    }
-    public Map<String, Object> getWordMap() {
         return wordMap;
     }
 
