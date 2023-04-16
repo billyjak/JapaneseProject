@@ -25,16 +25,16 @@ public class Practice {
             amount = wordMap.size();
         }
         Object[] keys = wordMap.keySet().toArray();
-        List<String> wordSet =
+        List<String> wordList =
                 new ArrayList<>(Arrays.stream(Arrays.stream(keys)
                                 .toArray(String[]::new))
                                 .toList());
-//        Set<String> wordSet = new HashSet<>(Arrays.stream(Arrays.stream(keys)
+//        Set<String> wordList = new HashSet<>(Arrays.stream(Arrays.stream(keys)
 //                        .toArray(String[]::new))
 //                        .toList());
         for (int i = 0; i < amount; i++) {
-            int index = new Random().nextInt(wordSet.size());
-            String englishWord = wordSet.get(index);
+            int index = new Random().nextInt(wordList.size());
+            String englishWord = wordList.get(index);
             String japaneseWord = wordMap.get(englishWord).toString();
             System.out.println("What is the Japanese word for " + englishWord + " ?");
             String answer = SCANNER.nextLine();
@@ -43,7 +43,7 @@ public class Practice {
             } else {
                 System.out.println("Incorrect. The answer is " + japaneseWord + ".");
             }
-            wordSet.remove(index);
+            wordList.remove(index);
         }
     }
 }
