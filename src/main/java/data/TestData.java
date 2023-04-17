@@ -1,6 +1,6 @@
 package data;
 
 public class TestData {
-    private String sakana = "fish";
-    private String neko = "cat";
+    private final String sakana = "fish";
+    private final String neko = "cat";
 }
