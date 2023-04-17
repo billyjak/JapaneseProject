@@ -5,22 +5,30 @@ import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
 import java.util.HashMap;
-import java.util.Objects;
 
 public class Dao {
-    HashMap<String, Object> wordMap = new HashMap<>();
-    ClassLoader classLoader = getClass().getClassLoader();
-    File file = (new File(Objects.requireNonNull(Objects.requireNonNull(classLoader.getResource("data.json")).getFile())));
     ObjectMapper mapper = new ObjectMapper();
 
-    public HashMap<String, Object> getWordMap() {
-        try {
-            wordMap = mapper.readValue(file, new TypeReference<>(){});
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
-        return wordMap;
+    public HashMap<String, Object> getWordMap() throws URISyntaxException, IOException {
+        File file = getDataFile();
+
+        return mapper.readValue(file, new TypeReference<>(){});
+    }
+
+    private File getDataFile() throws URISyntaxException {
+        URL url = getUrl();
+        URI uri = url.toURI();
+
+        return new File(uri);
+    }
+
+    private URL getUrl() {
+        ClassLoader classLoader = getClass().getClassLoader();
+        return classLoader.getResource("data.json");
     }
 
 }

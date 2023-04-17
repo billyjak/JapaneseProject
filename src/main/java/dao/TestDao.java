@@ -1,30 +1,33 @@
 package dao;
 
-
-import com.fasterxml.jackson.core.JsonFactory;
-import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.core.type.TypeReference;
 import com.fasterxml.jackson.databind.ObjectMapper;
 
 import java.io.File;
 import java.io.IOException;
-import java.util.Map;
+import java.net.URI;
+import java.net.URISyntaxException;
+import java.net.URL;
+import java.util.HashMap;
 
 public class TestDao {
-    File file = new File("src\\main\\java\\data\\data.json");
     ObjectMapper mapper = new ObjectMapper();
 
-    Map<String, Object> testMap;
+    public HashMap<String, Object> getTestMap() throws IOException, URISyntaxException {
+        File file = getDataFile();
 
-    {
-        try {
-            testMap = mapper.readValue(file, new TypeReference<>(){});
-        } catch (IOException e) {
-            throw new RuntimeException(e);
-        }
+        return mapper.readValue(file, new TypeReference<>(){});
     }
 
-    public Map<String, Object> getTestMap() {
-        return testMap;
+    private File getDataFile() throws URISyntaxException {
+        URL url = getUrl();
+        URI uri = url.toURI();
+
+        return new File(uri);
+    }
+
+    private URL getUrl() {
+        ClassLoader classLoader = getClass().getClassLoader();
+        return classLoader.getResource("data.json");
     }
 }
