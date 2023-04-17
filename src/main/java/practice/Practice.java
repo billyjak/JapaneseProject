@@ -4,24 +4,40 @@ import dao.Dao;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
+import java.util.ArrayList;
+import java.util.Collections;
 import java.util.HashMap;
-import java.util.HashSet;
 import java.util.List;
 import java.util.Random;
 import java.util.Scanner;
-import java.util.Set;
 
 public class Practice {
     private final Scanner scanner = new Scanner(System.in);
     private final HashMap<String, Object> wordMap;
     private final List<String> testDaoKeys;
-    private final Set<Integer> integerSet;
-
     public Practice() throws URISyntaxException, IOException {
         Dao dao = new Dao();
         this.wordMap = dao.getWordMap();
         this.testDaoKeys = wordMap.keySet().stream().toList();
-        this.integerSet = new HashSet<>();
+    }
+
+    public void practiceNQuestions(int suggestedNumQuestions) {
+        int numQuestions = Math.min(suggestedNumQuestions, wordMap.size());
+        for (Integer integer : getRandomNumbersForKeys(numQuestions)) {
+            practiceSelectedQuestion(integer);
+        }
+    }
+
+    private ArrayList<Integer> getRandomNumbersForKeys(int numQuestions) {
+        ArrayList<Integer> arrayList = new ArrayList<>(numQuestions);
+        Collections.shuffle(arrayList);
+        return arrayList;
+    }
+
+    public void practiceSelectedQuestion(Integer integer) {
+        String key = testDaoKeys.get(integer);
+        askQuestion(key);
+        evaluateAnswer(key);
     }
 
     public void practiceOneQuestion() {
@@ -30,21 +46,9 @@ public class Practice {
         evaluateAnswer(key);
     }
 
-    public void practiceNQuestions(int suggestedNumQuestions) {
-        int numQuestions = Math.min(suggestedNumQuestions, wordMap.size());
-        for (int i = 0; i < numQuestions; i++) {
-            practiceOneQuestion();
-        }
-    }
-
     private String getKeyForQuestion() {
         int numWords = testDaoKeys.size();
         int random = new Random().nextInt(numWords);
-
-        while (!integerSet.add(random)) {
-            random = new Random().nextInt(numWords);
-        }
-
         return testDaoKeys.get(random);
     }
 
