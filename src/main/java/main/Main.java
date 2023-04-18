@@ -1,13 +1,13 @@
-package org.example;
+package main;
 
-import practice.Practice;
+import Json.GetJson;
 
 import java.io.IOException;
 import java.net.URISyntaxException;
 
 public class Main {
     public static void main(String[] args) throws IOException, URISyntaxException {
-        Practice practice = new Practice();
-        practice.practiceNQuestions(3);
+        GetJson getJson = new GetJson();
+        getJson.getValueFromJson();
     }
 }
