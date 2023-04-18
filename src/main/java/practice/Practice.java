@@ -15,10 +15,14 @@ public class Practice {
     private final Scanner scanner = new Scanner(System.in);
     private final HashMap<String, Object> wordMap;
     private final List<String> testDaoKeys;
+
     public Practice() throws URISyntaxException, IOException {
         Dao dao = new Dao();
         this.wordMap = dao.getWordMap();
         this.testDaoKeys = wordMap.keySet().stream().toList();
+    }
+
+    public void jacksonFunc() throws IOException {
     }
 
     public void practiceNQuestions(int suggestedNumQuestions) {
@@ -34,7 +38,7 @@ public class Practice {
         return arrayList;
     }
 
-    public void practiceSelectedQuestion(Integer integer) {
+    private void practiceSelectedQuestion(Integer integer) {
         String key = testDaoKeys.get(integer);
         askQuestion(key);
         evaluateAnswer(key);

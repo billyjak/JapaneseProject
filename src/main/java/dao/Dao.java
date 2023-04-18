@@ -19,16 +19,16 @@ public class Dao {
         return mapper.readValue(file, new TypeReference<>(){});
     }
 
-    private File getDataFile() throws URISyntaxException {
+    public File getDataFile() throws URISyntaxException {
         URL url = getUrl();
         URI uri = url.toURI();
 
         return new File(uri);
     }
 
-    private URL getUrl() {
+    public URL getUrl() {
         ClassLoader classLoader = getClass().getClassLoader();
-        return classLoader.getResource("data.json");
+        return classLoader.getResource("nouns.json");
     }
 
 }
